@@ -2,7 +2,6 @@ package com.ll.exam.article;
 
 import com.ll.exam.Rq;
 import com.ll.exam.article.dto.ArticleDto;
-import com.ll.exam.util.Ut;
 
 import java.util.List;
 
@@ -117,8 +116,7 @@ public class ArticleController {
     public void getArticles(Rq rq) {
         List<ArticleDto> articleDtos = articleService.findAll();
 
-        String jsonStr = Ut.json.toStr(articleDtos, "");
+        rq.json(articleDtos);
 
-        rq.println(jsonStr);
     }
 }
