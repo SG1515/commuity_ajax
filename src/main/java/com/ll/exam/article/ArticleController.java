@@ -2,8 +2,10 @@ package com.ll.exam.article;
 
 import com.ll.exam.Rq;
 import com.ll.exam.article.dto.ArticleDto;
+import com.ll.exam.util.Ut;
 
 import java.util.List;
+import java.util.Map;
 
 public class ArticleController {
     private ArticleService articleService;
@@ -115,6 +117,8 @@ public class ArticleController {
 
     public void getArticles(Rq rq) {
         List<ArticleDto> articleDtos = articleService.findAll();
+
+        Map<String, Object> resultData = Ut.mapOf("resultCode", "S-1", "msg", "성공", "data", articleDtos);
 
         rq.json(articleDtos);
 
