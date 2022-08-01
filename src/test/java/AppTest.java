@@ -29,7 +29,7 @@ public class AppTest {
         String jsonStr = Ut.json.toStr(articleDtoOrigin, "");
 
 
-        ArticleDto articleDtoFromJson = (ArticleDto) Ut.json.toObj(jsonStr, ArticleDto.class, null);
+        ArticleDto articleDtoFromJson = Ut.json.toObj(jsonStr, ArticleDto.class, null);
         assertThat(articleDtoOrigin).isEqualTo(articleDtoFromJson);
     }
 
