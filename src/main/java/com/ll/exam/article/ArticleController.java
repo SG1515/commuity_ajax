@@ -1,6 +1,5 @@
 package com.ll.exam.article;
 
-import com.ll.exam.ResultData;
 import com.ll.exam.Rq;
 import com.ll.exam.article.dto.ArticleDto;
 
@@ -117,9 +116,8 @@ public class ArticleController {
     public void getArticles(Rq rq) {
         List<ArticleDto> articleDtos = articleService.findAll();
 
-        ResultData<List<ArticleDto>> resultData = new ResultData("성공", "S-1", articleDtos);
+        rq.successJson(articleDtos);
 
-        rq.json(articleDtos);
 
     }
 }
