@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ include file="../common/head.jspf"%>
@@ -19,35 +18,6 @@
             </li>
             </c:forEach>
         </ul>
-    </div>
-</section>
-
-
-<section class="mt-5">
-    <div class="container px-3 mx-auto">
-        <h1 class"font-bold text-lg">테스트</h1>
-        <script>
-        function Article__loadLatest() {
-            fetch('/usr/article/getArticles/free')
-                .then(data => data.json()) // JSON을 파싱
-                .then(responseData => {
-                    const articleList = responseData.data
-                    const latestArticle = articleList[articleList.length - 1];
-                    const content = new Date() + " : " + latestArticle.title + "<br / >";
-
-
-                    // jquery 찾기 : $
-                    // $('.place-1').append(content); //아래로 추가
-                    // $('.place-1').prepend(content); //위로 추가
-                    $('.place-1').empty().prepend(content); //기존 내용지우고 위로 추가
-                });
-        }
-        </script>
-        <button onclick="Article__loadLatest();" class="btn btn-xs">최신글 가져오기</button>
-
-        <div class="place-1 border-2 border-[red] min-h-[500px]">
-
-        </div>
     </div>
 </section>
 
