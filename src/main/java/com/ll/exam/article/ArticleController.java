@@ -113,15 +113,17 @@ public class ArticleController {
         rq.replace("/usr/article/detail/free/%d".formatted(id), "%d번 게시물이 수정되었습니다.".formatted(id));
     }
 
+
+    //fromId를 받아서
     public void getArticles(Rq rq) {
         long fromId = rq.getLongParam("fromId", -1);
 
         List<ArticleDto> articleDtos = null;
 
-        if ( fromId == -1 ) {
+        if ( fromId == -1 ) { //입력 안됐으면 봐주고
             articleDtos = articleService.findAll();
         }
-        else {
+        else { //Id가 fromid보다 큰것들을 찾아준다.
             articleDtos = articleService.findIdGreaterThan(fromId);
         }
 
