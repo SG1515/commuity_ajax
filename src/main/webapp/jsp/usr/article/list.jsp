@@ -3,7 +3,6 @@
 
 <%@ include file="../common/head.jspf"%>
 
-<!-- 보통 구획은 섹션으로 나눈다. -->
 <section>
     <div class="container px-3 mx-auto">
         <h1 class="font-bold text-lg">게시물 리스트</h1>
