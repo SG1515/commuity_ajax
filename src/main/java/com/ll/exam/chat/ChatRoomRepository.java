@@ -51,11 +51,9 @@ public class ChatRoomRepository {
     public void modify(long id, String title, String body) {
         ChatRoomDto chatRoomDto = findById(id);
 
-
         if ( chatRoomDto == null ) {
             return;
         }
-
 
         chatRoomDto.setTitle(title);
         chatRoomDto.setBody(body);
@@ -70,4 +68,5 @@ public class ChatRoomRepository {
 
         datum.remove(chatRoomDto);
     }
+
 }
