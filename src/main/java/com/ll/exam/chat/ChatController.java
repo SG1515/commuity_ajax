@@ -17,7 +17,7 @@ public class ChatController {
         rq.view("usr/chat/createRoom");
     }
 
-    public void doCreateRoom(Rq rq) {
+    public void createRoom(Rq rq) {
         String title = rq.getParam("title", "");
         String body = rq.getParam("body", "");
 
@@ -62,7 +62,7 @@ public class ChatController {
         rq.view("usr/chat/modifyRoom");
     }
 
-    public void doModifyRoom(Rq rq) {
+    public void modifyRoom(Rq rq) {
         long id = rq.getLongPathValueByIndex(0, -1);
 
         if (id == -1) {
@@ -159,7 +159,7 @@ public class ChatController {
         rq.view("usr/chat/roomManual");
     }
 
-    public void doWriteMessage(Rq rq) {
+    public void writeMessage(Rq rq) {
         long roomId = rq.getLongPathValueByIndex(0, -1);
 
         if (roomId == -1) {
@@ -186,7 +186,7 @@ public class ChatController {
         rq.replace("/usr/chat/room/%d".formatted(roomId), "메세지가 등록되었습니다.");
     }
 
-    public void doWriteMessageAjax(Rq rq) {
+    public void writeMessageAjax(Rq rq) {
         long roomId = rq.getLongPathValueByIndex(0, -1);
 
         if (roomId == -1) {
@@ -213,7 +213,6 @@ public class ChatController {
         rq.successJson(newChatMessageId);
     }
 
-
     public void getMessages(Rq rq) {
         long roomId = rq.getLongPathValueByIndex(0, -1);
 
@@ -233,16 +232,14 @@ public class ChatController {
 
         List<ChatMessageDto> chatMessageDtos = null;
 
-        if ( fromId == -1 ) {
+        if (fromId == -1) {
             chatMessageDtos = chatService.findMessagesByRoomId(roomId);
-        }
-        else {
+        } else {
             chatMessageDtos = chatService.findMessagesByRoomIdGreaterThan(roomId, fromId);
         }
 
         rq.successJson(chatMessageDtos);
     }
-
 
     public void deleteMessage(Rq rq) {
         long id = rq.getLongPathValueByIndex(0, 0);

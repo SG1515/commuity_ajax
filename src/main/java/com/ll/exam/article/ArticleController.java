@@ -19,11 +19,15 @@ public class ArticleController {
         rq.view("usr/article/list");
     }
 
+    public void showListAuto(Rq rq) {
+        rq.view("usr/article/listAuto");
+    }
+
     public void showWrite(Rq rq) {
         rq.view("usr/article/write");
     }
 
-    public void doWrite(Rq rq) {
+    public void write(Rq rq) {
         String title = rq.getParam("title", "");
         String body = rq.getParam("body", "");
 
@@ -40,21 +44,20 @@ public class ArticleController {
         long id = articleService.write(title, body);
 
         rq.replace("/usr/article/detail/free/%d".formatted(id), "%d번 게시물이 생성 되었습니다.".formatted(id));
-
     }
 
     public void showDetail(Rq rq) {
         long id = rq.getLongPathValueByIndex(1, 0);
 
         if (id == 0) {
-            rq.println("번호를 입력해주세요.");
+            rq.historyBack("번호를 입력해주세요.");
             return;
         }
 
         ArticleDto articleDto = articleService.findById(id);
 
         if (articleDto == null) {
-            rq.println("해당 글이 존재하지 않습니다.");
+            rq.historyBack("해당 글이 존재하지 않습니다.");
             return;
         }
 
@@ -62,18 +65,18 @@ public class ArticleController {
         rq.view("usr/article/detail");
     }
 
-    public void doDelete(Rq rq) {
+    public void delete(Rq rq) {
         long id = rq.getLongPathValueByIndex(1, 0);
 
         if (id == 0) {
-            rq.println("번호를 입력해주세요.");
+            rq.historyBack("번호를 입력해주세요.");
             return;
         }
 
         ArticleDto articleDto = articleService.findById(id);
 
         if (articleDto == null) {
-            rq.println("해당 글이 존재하지 않습니다.");
+            rq.historyBack("해당 글이 존재하지 않습니다.");
             return;
         }
 
@@ -86,14 +89,14 @@ public class ArticleController {
         long id = rq.getLongPathValueByIndex(1, 0);
 
         if (id == 0) {
-            rq.println("번호를 입력해주세요.");
+            rq.historyBack("번호를 입력해주세요.");
             return;
         }
 
         ArticleDto articleDto = articleService.findById(id);
 
         if (articleDto == null) {
-            rq.println("해당 글이 존재하지 않습니다.");
+            rq.historyBack("해당 글이 존재하지 않습니다.");
             return;
         }
 
@@ -101,8 +104,21 @@ public class ArticleController {
         rq.view("usr/article/modify");
     }
 
-    public void doModify(Rq rq) {
+    public void modify(Rq rq) {
         long id = rq.getLongPathValueByIndex(1, 0);
+
+        if (id == 0) {
+            rq.historyBack("번호를 입력해주세요.");
+            return;
+        }
+
+        ArticleDto articleDto = articleService.findById(id);
+
+        if (articleDto == null) {
+            rq.historyBack("해당 글이 존재하지 않습니다.");
+            return;
+        }
+
         String title = rq.getParam("title", "");
         String body = rq.getParam("body", "");
 
@@ -113,26 +129,18 @@ public class ArticleController {
         rq.replace("/usr/article/detail/free/%d".formatted(id), "%d번 게시물이 수정되었습니다.".formatted(id));
     }
 
-
-    //fromId를 받아서
     public void getArticles(Rq rq) {
         long fromId = rq.getLongParam("fromId", -1);
 
         List<ArticleDto> articleDtos = null;
 
-        if ( fromId == -1 ) { //입력 안됐으면 봐주고
+        if ( fromId == -1 ) {
             articleDtos = articleService.findAll();
         }
-        else { //Id가 fromid보다 큰것들을 찾아준다.
+        else {
             articleDtos = articleService.findIdGreaterThan(fromId);
         }
 
         rq.successJson(articleDtos);
-
-
-    }
-
-    public void showListAuto(Rq rq) {
-        rq.view("usr/article/listAuto");
     }
 }
